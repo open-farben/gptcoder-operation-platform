@@ -1,0 +1,39 @@
+dependencies {
+    // 这里引入依赖，不需要定义版本号，已经在父项目定义了
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-integration'
+    implementation 'org.springframework.integration:spring-integration-redis'
+
+    implementation 'com.mybatis-flex:mybatis-flex-spring-boot3-starter'
+
+    implementation 'jakarta.servlet:jakarta.servlet-api'
+
+    implementation 'cn.hutool:hutool-core'
+    implementation 'cn.hutool:hutool-log'
+    implementation 'cn.hutool:hutool-json'
+    implementation 'cn.hutool:hutool-poi'
+    implementation 'cn.hutool:hutool-http'
+    implementation 'org.apache.poi:poi-ooxml'
+
+    implementation 'com.google.guava:guava'
+    implementation "org.apache.commons:commons-lang3"
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    annotationProcessor 'com.mybatis-flex:mybatis-flex-processor'
+
+    implementation project(':commons:commons-user')
+
+//    implementation project(':app01')
+
+    implementation project(':commons:commons-ddd')
+    implementation project(':commons:commons-web')
+    implementation project(':commons:commons-errorcode')
+}

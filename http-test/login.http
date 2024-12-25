@@ -1,0 +1,32 @@
+###
+# @name 管理平台账号登陆
+POST {{baseUrl}}/account/login
+Content-Type: application/json
+
+{
+  "userId": "fOAjcMAmu7kY/kbJdHJWF4WDS+Aq0sTk9L9hkX5ElDRGxQRRlQ7DO4H//iImRDhZLloOd/s5uoatmwPoZyed9EqSDpxGSYH9Go+NdgcHiIZ8aVOb8Ua9mY6cr3S4Ut1oZjl+nlfSPte/fDrB2JL4IXtayZ5PctABci6z6Etjgjc=",
+  "password": "Whj17tP/bEOoCM38qjQU1VvTNhAxpbBupCiwRcb9f11jQH/jOxpMczqHPts8II/eQQttCFMsSmYJoFJH3y9gP/Spes/6zw7nX27JUGVUszmI8M9Xcdacs+hal9iaOOPuW873WkawszghqjfC7YaTzL7xbx4f96QwEDvbEk8tXAQ="
+}
+
+> {%
+    client.global.set("token", response.body.data.accessToken);
+    client.global.set("refreshToken", response.body.data.refreshToken);
+%}
+
+###
+# @name 用户刷新令牌
+POST {{baseUrl}}/token/refresh
+Content-Type: application/json
+Authorization: Bearer {{token}}
+RefreshToken: {{refreshToken}}
+
+> {%
+    client.global.set("token", response.body.data.accessToken);
+    client.global.set("refreshToken", response.body.data.refreshToken);
+%}
+
+###
+# @name 退出登录
+POST {{baseUrl}}/account/exit
+Content-Type: application/json
+Authorization: Bearer {{token}}

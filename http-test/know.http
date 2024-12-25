@@ -1,0 +1,219 @@
+###login
+#/gptcoder/backend/logs/operation-platform
+POST {{baseUrl}}/account/login
+Content-Type: application/json
+
+//{
+//    "userId": "fOAjcMAmu7kY/kbJdHJWF4WDS+Aq0sTk9L9hkX5ElDRGxQRRlQ7DO4H//iImRDhZLloOd/s5uoatmwPoZyed9EqSDpxGSYH9Go+NdgcHiIZ8aVOb8Ua9mY6cr3S4Ut1oZjl+nlfSPte/fDrB2JL4IXtayZ5PctABci6z6Etjgjc=",
+//    "password": "Whj17tP/bEOoCM38qjQU1VvTNhAxpbBupCiwRcb9f11jQH/jOxpMczqHPts8II/eQQttCFMsSmYJoFJH3y9gP/Spes/6zw7nX27JUGVUszmI8M9Xcdacs+hal9iaOOPuW873WkawszghqjfC7YaTzL7xbx4f96QwEDvbEk8tXAQ="
+//}
+//
+{
+  "userId":"YHs898TO4v58fETW1Ynfb49Uaa170mqMwSDKNkHDdx99r37occCvx37ZnUaNWS45DsJc0UCFRMeSl1VagmM3cdKYXO2uoNAioRyIaZXM/bxTfpQNuSK+X3f9C5e6UbrXBs1vw0aIFLKVvaq+FIFmpW7VABx7OPmhcLsGbLiQ22g=",
+  "password":"PsRV847wGmQ/LbKvuHhVcZmA7dbsQWCRNhnrQ0nLBuFQCz8WhEFIGIWrYdIeWn3auc+WF0JprQE6Wn0q3AAM+MVpOeL8EHY++MewERtpJDvwoMgOm7RLr/GRuo5Srj8no3lvT4Gy2k5qH2DQWrRlDvYCJ+2YBZpSJW/nF571mB0="
+}
+
+
+> {%
+    client.log(JSON.stringify(response.body));
+    client.global.set("auth", "Bearer "+response.body.data.accessToken);
+    // client.global.set("Authorization","Bearer "+response.body.data.accessToken);
+%}
+
+<> 2024-04-01T171033.200.json
+
+
+###get knoeledge
+GET {{baseUrl}}/knowledge/id/1790937611403231200
+Content-Type: application/json
+Authorization:{{auth}}
+
+
+###Add knoeledge
+#//,"fileList": ["65f000c9e4b0c49b3f2c349a"]
+POST {{baseUrl}}/knowledge
+Content-Type: application/json
+Authorization:{{auth}}
+
+{
+  "name": "gary1",
+  "mem": "gary1",
+  "rightType": 0,
+  "linkDepart": "link1",
+  "status": 0
+}
+
+<> 2024-03-15T161055.200.json
+<> 2024-03-15T160918.200.json
+
+
+
+###list know all
+GET {{baseUrl}}/knowledge/list
+Authorization:{{token}}
+
+<> 2024-03-25T104256.200.json
+
+
+
+###list know by name
+POST {{baseUrl}}/knowledge/list?pageSize=100
+Content-Type: application/json
+Authorization:{{token}}
+
+{
+  "name": ""
+}
+
+<> 2024-04-01T171044.200.json
+<> 2024-03-26T094237.200.json
+<> 2024-03-26T093621.200.json
+
+
+###knowledge file list
+GET {{baseUrl}}/knowledge/filelist/18
+Authorization:{{auth}}
+
+###knowledge file list
+GET {{baseUrl}}/knowledge/files/664d8f11ae863e264399eb12
+Authorization:{{auth}}
+
+###update knowledge
+PUT {{baseUrl}}/knowledge
+Content-Type: application/json
+Authorization:{{auth}}
+
+{
+  "id":24,
+  "name": "gary1111",
+  "mem": "gary333",
+  "rightType": 0,
+  "linkDepart": "link1",
+  "status": 0,
+  "fileList": ["65f256a3e4b0c49bc821e83e"]
+}
+
+<> 2024-03-15T161246.200.json
+<> 2024-03-15T161209.200.json
+
+
+###update status
+PUT {{baseUrl}}/knowledge/status/1790996084670119936
+Content-Type: application/json
+Authorization:{{auth}}
+
+{
+  "body": 1
+}
+
+
+###del knowledge
+DELETE {{baseUrl}}/knowledge/1792730107594891264
+Content-Type: application/json
+Authorization:{{auth}}
+
+<> 2024-01-31T160415.200.json
+
+
+###post knowledgeRight
+POST {{baseUrl}}/knowledge/right
+Content-Type: application/json
+Authorization:{{token}}
+
+[{"kid": "48", "lid": "657134e9e4b0e0baf2cfb2e4", "ltype": 0}
+,{"kid": "48", "lid": "657134d7e4b0e0baf2cfb2e3", "ltype": 0}]
+
+
+###get knowledgeRight
+GET {{baseUrl}}/knowledge/right/16
+Content-Type: application/json
+Authorization:{{auth}}
+
+
+###knowledge userlist
+GET {{baseUrl}}/organ/knowtree?kid=48
+Authorization:{{auth}}
+Content-Type: application/json
+
+###knowledge pluglist
+GET {{baseUrl}}/knowledge/pluglist
+#Authorization:{{auth}}
+Content-Type: application/json
+
+<> 2024-01-22T141445.200.json
+
+
+###knowledge pluglist
+GET {{baseUrl}}/knowledge/pluglist/9f73554e-9848-4432-9360-d33bdb5d0c8b
+#Authorization:{{auth}}
+Content-Type: application/json
+
+<> 2024-03-15T164612.200.json
+<> 2024-03-15T164509.200.json
+<> 2024-03-15T164440.200.json
+<> 2024-03-15T164418.200.json
+
+
+###plugin login
+POST http://{{host}}/agent/plugin/login
+Content-Type: application/json
+
+{
+  "uuid": "ltg1111111",
+  "machineId": "7208f1a75ce6149a83fc4e752e32e569c87fc6309a455ef43945ec6bebbab7a5",
+  "device": "vscode_desktop",
+  "userId": "iNspuipFLzY94qKizzlgbjjTWHDsPgBVA+kATwIskVF2fXpEXlL3sHY0vTv6wCRgW7ea+iYvNRfnGsNvOga4zldW2YmA9snaem75stVhCrRDENEU6n+fuTONd2vp49J4/sOjWKVz7DTg3vxdtoX8w3OyNN8XLslIDcBNxiV+tUo=",
+  "password": "PqWLeMEYePyKy53/Ixr4L+MEP4PBxwsphFaut612sayYfmtYrgMnYrVyfvAKO7aPGxzv6v2pL933co59ymd+1mcSWoCC6HSIV/jgWt/gyekAtflMNVKZVJVRHquPEslEBmkyiiTbG5XrSbfuOzCRzaL4xCgSC24PUwnn4VN/cXg=",
+  "ideName": "PyCharm",
+  "ideVersion": "2.0.1",
+  "pluginType": "jetBrains",
+  "pluginVersion": "1.4.0"
+}
+
+<> 2024-01-22T141453.200.json
+
+###plugin chat
+POST http://{{host}}/agent/models/stream/qa/chat
+Content-Type: application/json
+
+"hello"
+
+<> 2024-03-14T104658.200.json
+<> 2024-03-14T104305.200.json
+<> 2024-03-14T104252.200.json
+<> 2024-03-14T104248.200.json
+<> 2024-03-14T104226.200.json
+
+###plugin list right
+GET http://{{host}}/agent/models/pluglist
+Authorization:{{auth}}
+Uuid:ltg1111111
+Version: JETBRAINS:1.4.0
+Content-Type: application/json
+
+<> 2024-01-22T142833.200.json
+
+###upload file
+#
+# @name 上传文件
+POST {{baseUrl}}/files/uploadFile
+Authorization: {{auth}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="/E:/Java源码加密工具.rar"
+
+< /E:/Java源码加密工具.rar
+--WebAppBoundary
+Content-Disposition: form-data; name="useType"
+
+KNOWLEDGE
+--WebAppBoundary
+Content-Disposition: form-data; name="parentPath"
+
+/ltg_test2
+--WebAppBoundary
+Content-Disposition: form-data; name="fileName"
+
+test.rar
+--WebAppBoundary

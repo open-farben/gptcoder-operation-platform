@@ -1,0 +1,154 @@
+
+CREATE TABLE `t_account` (
+  `id` varchar(36) NOT NULL COMMENT '主键',
+  `user_id` varchar(100) NOT NULL COMMENT '用户账号',
+  `user_name` varchar(50) DEFAULT NULL COMMENT '用户名称',
+  `pwd` varchar(500) DEFAULT NULL COMMENT '密码（加密)',
+  `email` varchar(500) DEFAULT NULL COMMENT '邮箱',
+  `role_id` varchar(100) DEFAULT NULL COMMENT '角色编码',
+  `in_use` smallint(6) NOT NULL DEFAULT '0' COMMENT '0 在用 1禁用',
+  `last_login_date` datetime DEFAULT NULL COMMENT '最后登录时间',
+  `last_login_ip` varchar(50) DEFAULT NULL COMMENT '最近登录IP',
+  `create_by` varchar(100) DEFAULT NULL COMMENT '创建人',
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` varchar(100) DEFAULT NULL COMMENT '修改人',
+  `update_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `logic_delete` smallint(6) NOT NULL DEFAULT '0' COMMENT '0 正常 1删除',
+  `job_number` varchar(100) DEFAULT NULL COMMENT '用户工号',
+  `phone` varchar(50) DEFAULT NULL COMMENT '联系手机号',
+  `organization` varchar(100) DEFAULT NULL COMMENT '所属组织ID',
+  `duty` varchar(100) DEFAULT NULL COMMENT '职务ID',
+  `full_organization` varchar(500) DEFAULT NULL COMMENT '组织机构长编码',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id_UNIQUE` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户账号信息表';
+
+
+DROP TABLE IF EXISTS `gpt_code_manage`.`t_account_contact`;
+CREATE TABLE `gpt_code_manage`.`t_account_contact` (
+  `user_id` VARCHAR(100) NOT NULL COMMENT '用户账号',
+  `user_name` VARCHAR(50) NULL COMMENT '用户名称',
+  `job_number` VARCHAR(100) NULL COMMENT '用户工号',
+  `phone` VARCHAR(50) NULL COMMENT '联系手机号',
+  `sex` VARCHAR(10) NULL COMMENT '性别',
+  `native_place` VARCHAR(50) NULL COMMENT '籍贯',
+  `address` VARCHAR(200) NULL COMMENT '家庭住址',
+  `email` VARCHAR(200) NULL COMMENT '注册邮箱',
+  `position_id` VARCHAR(100) NULL COMMENT '职位ID',
+  `position_name` VARCHAR(100) NULL COMMENT '职位名称',
+  `struct_id` VARCHAR(100) NULL COMMENT '组织架构ID',
+  `struct_name` VARCHAR(100) NULL COMMENT '组织架构名称',
+  `department_id` VARCHAR(100) NULL COMMENT '部门ID',
+  `department_name` VARCHAR(100) NULL COMMENT '部门名称',
+  `person_email` VARCHAR(100) NULL COMMENT '个人联系邮箱',
+  `create_by` VARCHAR(100) NULL COMMENT '创建人',
+  `create_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` VARCHAR(100) NULL COMMENT '修改人',
+  `update_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `logic_delete` SMALLINT NOT NULL DEFAULT 0 COMMENT '0 正常 1删除',
+  PRIMARY KEY (`user_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COMMENT = '用户联系信息表';
+
+
+DROP TABLE IF EXISTS `gpt_code_manage`.`t_access_info`;
+CREATE TABLE `gpt_code_manage`.`t_access_info` (
+  `flow_id` VARCHAR(100) NOT NULL COMMENT '流水ID，主键',
+  `user_id` VARCHAR(100) NULL COMMENT '用户ID',
+  `route_id` VARCHAR(300) NULL COMMENT '路由ID',
+  `access_datetime` DATETIME NULL COMMENT '访问时间',
+  `host` VARCHAR(100) NULL COMMENT '客户端机器名称',
+  `client_ip` VARCHAR(100) NULL COMMENT '客户端IP',
+  `method` VARCHAR(50) NULL COMMENT '请求方法',
+  `uri` VARCHAR(200) NULL COMMENT '内部地址',
+  `url` VARCHAR(300) NULL COMMENT '外部调用地址',
+  `query_header` VARCHAR(2000) NULL COMMENT '请求头信息',
+  `query_param` VARCHAR(1000) NULL COMMENT '请求参数',
+  `response_status` VARCHAR(50) NULL COMMENT '响应码',
+  `response_result` TEXT NULL COMMENT '响应结果',
+  `server_version` VARCHAR(100) NULL COMMENT '服务器版本',
+  `response_duration` VARCHAR(100) NULL COMMENT '请求响应时长',
+  `request_body` TEXT NULL COMMENT '完整请求文本',
+  `create_by` VARCHAR(100) NULL COMMENT '创建人',
+  `create_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `logic_delete` SMALLINT NOT NULL DEFAULT 0 COMMENT '0 正常 1删除',
+  PRIMARY KEY (`flow_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COMMENT = '接口请求流水表';
+
+
+DROP TABLE IF EXISTS `gpt_code_manage`.`t_adoption_info`;
+CREATE TABLE `gpt_code_manage`.`t_adoption_info` (
+  `info_id` VARCHAR(100) NOT NULL COMMENT '流水ID，主键',
+  `user_id` VARCHAR(100) NULL COMMENT '用户ID',
+  `fun_id` VARCHAR(100) NULL COMMENT '方法ID',
+  `client_ip` VARCHAR(100) NULL COMMENT '客户端IP',
+  `plugins_ver` VARCHAR(50) NULL COMMENT '插件版本',
+  `ide_name` VARCHAR(100) NULL COMMENT 'idea名称',
+  `ide_ver` VARCHAR(50) NULL COMMENT 'idea版本',
+  `sys_ver` VARCHAR(100) NULL COMMENT '系统版本',
+  `mac_info` VARCHAR(2000) NULL COMMENT '客户端其他信息（操作系统、配置、Ide版本、插件版本等）',
+  `gen_num` INTEGER NOT NULL DEFAULT 0 COMMENT '生成代码行数',
+  `confirm_num` INTEGER NOT NULL DEFAULT 0 COMMENT '确认代码行数',
+  `access_date` DATE NULL COMMENT '访问时间',
+  `prompt_num` INTEGER NOT NULL DEFAULT 0 COMMENT '输入/提示字符数',
+  `complement_char_num` INTEGER NOT NULL DEFAULT 0 COMMENT '补全字符数',
+  `complement_rate` decimal(10,4) NOT NULL DEFAULT 0 COMMENT '代码补全率',
+  `cost_time` INTEGER NULL COMMENT '系统响应时间',
+  `create_by` VARCHAR(100) NULL COMMENT '创建人',
+  `create_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`info_id`),
+  KEY `user_fun_idx` (`user_id`,`fun_id`) USING BTREE COMMENT '操作用户索引'
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COMMENT = '插件上报数据表';
+
+
+DROP TABLE IF EXISTS `gpt_code_manage`.`t_dict`;
+CREATE TABLE `gpt_code_manage`.t_dict (
+  `id` varchar(36) NOT NULL COMMENT '主键',
+  `dict_code` varchar(100) NOT NULL COMMENT '字典编码',
+  `dict_name` varchar(200) DEFAULT NULL COMMENT '字典名称',
+  `dict_value` varchar(200) DEFAULT NULL COMMENT '字典值',
+  `parent_code` varchar(100) DEFAULT NULL COMMENT '父级编码',
+  `order_no` smallint(6) DEFAULT NULL COMMENT '序号',
+  `dict_level` tinyint(1)  NOT NULL DEFAULT '0' COMMENT '层级：0表示根字典',
+  `dict_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '字典类型：0 常量  1级联',
+  `mark` varchar(500) DEFAULT NULL COMMENT '描述',
+  `disable` tinyint(1) NOT NULL DEFAULT '0' COMMENT '启用状态，默认0启用',
+  `create_by` varchar(100) DEFAULT NULL COMMENT '创建人',
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` varchar(100) DEFAULT NULL COMMENT '修改人',
+  `update_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `logic_delete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 正常 1删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `dict_code_UNIQUE` (`dict_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统字典信息表';
+
+
+CREATE TABLE `t_dict_code` (
+  `id` varchar(36) NOT NULL COMMENT '主键',
+  `kind_code` varchar(100) NOT NULL COMMENT '编码',
+  `kind_value` varchar(200) DEFAULT NULL COMMENT '值',
+  `dict_code` varchar(100) DEFAULT NULL COMMENT '所属字典编码',
+  `parent_code` varchar(100) DEFAULT NULL COMMENT '所属父级字典编码',
+  `order_no` smallint(6) DEFAULT NULL COMMENT '序号',
+  `mark` varchar(500) DEFAULT NULL COMMENT '描述',
+  `disable` tinyint(1) NOT NULL DEFAULT '0' COMMENT '启用状态，默认0启用',
+  `create_by` varchar(100) DEFAULT NULL COMMENT '创建人',
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` varchar(100) DEFAULT NULL COMMENT '修改人',
+  `update_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `logic_delete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 正常 1删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `kind_code_index` (`dict_code`,`kind_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统字典映射表';
+
+-- alter table t_account add column full_organization varchar(500) DEFAULT NULL COMMENT '组织机构长编码';
+
+alter table t_adoption_info
+ADD COLUMN `model_name` varchar(100) NULL COMMENT '当前模型',
+ADD COLUMN `plugin_type` varchar(100) NULL COMMENT '插件类型';

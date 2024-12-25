@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  lzh_authon:
+    image: gptcoder-authentication:1.1.1
+    container_name: lzh_authon
+    ports:
+      - "28088:8080"
+    networks:
+      - gpt_coder_net
+    restart: unless-stopped
+
+  lzh_ope_plat:
+    image: gptcoder-operation-platform-service:open_source_1.0
+    volumes:
+      - /data/release:/data/release:rw
+    container_name: lzh_ope_plat
+    ports:
+      - "28080:28080"
+    networks:
+      - gpt_coder_net
+    restart: unless-stopped
+
+networks:
+  gpt_coder_net:
+    driver: bridge

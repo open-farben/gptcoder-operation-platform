@@ -1,0 +1,149 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+plugins {
+	id 'io.spring.dependency-management' version '1.1.4' apply false
+	id 'org.springframework.boot' version "${springbootVersion}" apply false
+	id "com.google.cloud.tools.jib" version "${jibVersion}" apply false
+}
+
+// 所有项目的通用配置
+allprojects {
+	group = 'cn.com.farben.gptcoder.operation'
+
+	tasks.withType(JavaCompile).tap {
+		configureEach {
+			options.encoding = 'UTF-8'
+		}
+	}
+
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+}
+
+// 子项目的通用配置
+subprojects {
+	if (name.equals('commons')) {
+		return
+	}
+	// 使用插件
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+
+	configurations {
+		// 使用log4j2，排除自带的日志
+		all*.exclude group: "org.springframework.boot", module: 'spring-boot-starter-logging'
+		// 排除junit4
+		all*.exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		// 排除tomcat
+		all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+	}
+
+	dependencyManagement {
+		// 导入SpringBoot依赖Bom
+		imports {
+			mavenBom SpringBootPlugin.BOM_COORDINATES
+		}
+
+		// 自定义配置第三方依赖
+		dependencies {
+			dependency "org.projectlombok:lombok:${lombokVersion}"
+
+			dependency "cn.hutool:hutool-core:${hutoolVersion}"
+			dependency "cn.hutool:hutool-log:${hutoolVersion}"
+			dependency "cn.hutool:hutool-json:${hutoolVersion}"
+			dependency "cn.hutool:hutool-crypto:${hutoolVersion}"
+			dependency "cn.hutool:hutool-http:${hutoolVersion}"
+			dependency "cn.hutool:hutool-jwt:${hutoolVersion}"
+			dependency "cn.hutool:hutool-poi:${hutoolVersion}"
+			dependency "cn.hutool:hutool-system:${hutoolVersion}"
+			dependency "cn.hutool:hutool-extra:${hutoolVersion}"
+
+			dependency "org.eclipse.jgit:org.eclipse.jgit:${gitVersion}"
+			dependency "org.redisson:redisson-spring-boot-starter:${redissonVersion}"
+			dependency "commons-io:commons-io:${commonioVersion}"
+			dependency "org.msgpack:jackson-dataformat-msgpack:0.9.8"
+
+			dependency "org.apache.poi:poi-ooxml:${poiVersion}"
+			dependency "com.alibaba:fastjson:${fastjsonVersion}"
+
+			dependency group: "mysql", name: "mysql-connector-java", version: "${mysqlConnectorVersion}"
+			dependency group: "com.zaxxer", name: "HikariCP", version: "${hikariCPVersion}"
+
+			dependency "com.mybatis-flex:mybatis-flex-spring-boot3-starter:${mybatisFlexVersion}"
+			dependency group: "com.mybatis-flex", name: "mybatis-flex-processor", version: "${mybatisFlexVersion}"
+
+			dependency "org.apache.commons:commons-lang3:${commonsLang3Version}"
+			dependency "com.google.guava:guava:${guavaVersion}"
+
+			// 修复漏洞
+			dependency "org.apache.commons:commons-compress:${commonsCompressVersion}"
+			dependency "org.jboss.xnio:xnio-api:${xnioVersion}"
+			dependency "io.undertow:undertow-core:${undertowVersion}"
+
+//			dependency "cn.com.farben.commons:commons-web:${commonsWebVersion}"
+//			dependency "cn.com.farben.commons:commons-ddd:${commonsDDDVersion}"
+//			dependency "cn.com.farben.commons:commons-redis:${commonsRedisVersion}"
+//			dependency "cn.com.farben.commons:commons-file:${commonsFileVersion}"
+//			dependency "cn.com.farben.commons:commons-errorcode:${commonsErrorcodeVersion}"
+		}
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
+
+	tasks.bootJar {
+		enabled = false
+	}
+
+	if (name.contains('service')) {
+		// 对外提供服务的微服务，需要jib-gradle-plugin生成镜像
+		apply plugin: 'com.google.cloud.tools.jib'
+		tasks.bootJar {
+			enabled = true
+		}
+
+		jib {
+			allowInsecureRegistries = true
+			from {
+				image = 'dockerproxy.cn/library/eclipse-temurin:21.0.4_7-jre'
+				platforms {
+					platform {
+						architecture = 'amd64'
+						os = 'linux'
+					}
+				}
+			}
+			outputPaths {
+				tar = "build/${project.name}-${project.version}-image.tar"
+				digest = "build/${project.name}-${project.version}-image.digest"
+				imageId = "build/${project.name}-${project.version}-image.id"
+				imageJson = "build/${project.name}-${project.version}-image.json"
+			}
+			container {
+				// 如果设置了entrypoint，那么jvmFlags、mainClass、extraClasspath和expandClasspathDependencies将被忽略
+				jvmFlags = [
+						'-Duser.timezone=GMT+08', '-Dfile.encoding=UTF8', '-Xms2048m', '-Xmx10240m',
+						'-XX:+UseG1GC', '-XX:MaxGCPauseMillis=200'
+				]
+				labels =  [service:"${project.name}", owner:'farben-backend']
+				// 设置了系统时区后可以在部署时不用勾选同步主机时区
+				environment = [
+						'TZ': 'Asia/Shanghai'
+				]
+				// 容器化部署不用担心端口冲突，统一使用8080
+				ports = ['8080']
+				// 使用该参数将镜像的创建时间与系统时间对齐
+				creationTime = "USE_CURRENT_TIMESTAMP"
+				user = 65534
+//				entrypoint = ['/bin/sh', 'entrypoint.sh']
+			}
+		}
+	}
+}

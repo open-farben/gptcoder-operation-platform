@@ -1,0 +1,49 @@
+###
+# @name 查询系统支持的模型
+GET {{baseUrl}}/model/getSupportModels
+Authorization: Bearer {{token}}
+
+###
+# @name 启用模型
+POST {{baseUrl}}/model/enableModel
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "2"
+}
+
+###
+# @name 禁用模型
+POST {{baseUrl}}/model/disableModel
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "2"
+}
+
+###
+# @name 修改模型参数
+POST {{baseUrl}}/model/modifyModelParam
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "1",
+  "params": [
+    {
+      "paramId": 1,
+      "paramValue": 128
+    },
+    {
+      "paramId": 10,
+      "paramValue": 2048
+    }
+  ]
+}
+
+###
+# @name 刷新模型缓存
+POST {{baseUrl}}/model/refreshCache
+Authorization: Bearer {{token}}

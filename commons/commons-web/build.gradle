@@ -1,0 +1,26 @@
+version = '2.0.4'
+
+dependencies {
+    implementation 'cn.hutool:hutool-core'
+    implementation 'cn.hutool:hutool-log'
+    implementation 'cn.hutool:hutool-log'
+    implementation 'cn.hutool:hutool-crypto'
+    implementation 'cn.hutool:hutool-jwt'
+    implementation 'jakarta.servlet:jakarta.servlet-api'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    implementation 'com.mybatis-flex:mybatis-flex-spring-boot3-starter'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation project(':commons:commons-errorcode')
+}
+
+jar {
+    preserveFileTimestamps false
+    reproducibleFileOrder true
+}

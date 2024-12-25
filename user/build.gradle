@@ -1,0 +1,47 @@
+dependencies {
+    // 这里引入依赖，不需要定义版本号，已经在父项目定义了
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+
+    implementation 'org.msgpack:jackson-dataformat-msgpack'
+    implementation 'org.eclipse.jgit:org.eclipse.jgit'
+    implementation 'org.redisson:redisson-spring-boot-starter'
+    implementation 'commons-io:commons-io'
+
+    implementation 'org.apache.commons:commons-lang3'
+
+    implementation 'com.mybatis-flex:mybatis-flex-spring-boot3-starter'
+
+    implementation 'cn.hutool:hutool-log'
+    implementation 'cn.hutool:hutool-json'
+    implementation 'cn.hutool:hutool-crypto'
+    implementation 'cn.hutool:hutool-jwt'
+    implementation 'cn.hutool:hutool-http'
+    implementation 'com.google.guava:guava'
+    implementation 'cn.hutool:hutool-poi'
+    implementation 'org.apache.poi:poi-ooxml'
+
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    annotationProcessor 'com.mybatis-flex:mybatis-flex-processor'
+
+    implementation project(':commons:commons-file')
+    implementation project(':commons:commons-redis')
+    implementation project(':commons:commons-ddd')
+    implementation project(':commons:commons-web')
+    implementation project(':commons:commons-errorcode')
+    implementation project(':commons:commons-auth')
+    implementation project(':commons:commons-user')
+    implementation project(':commons:commons-model')
+    implementation project(':plugin-version')
+    implementation project(':dictionary')
+}

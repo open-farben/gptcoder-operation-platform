@@ -1,0 +1,34 @@
+dependencies {
+    // 这里引入依赖，不需要定义版本号，已经在父项目定义了
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+
+    implementation 'cn.hutool:hutool-log'
+    implementation 'cn.hutool:hutool-core'
+    implementation 'cn.hutool:hutool-crypto'
+
+    implementation 'org.apache.poi:poi-ooxml'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation "mysql:mysql-connector-java"
+    implementation "com.zaxxer:HikariCP"
+
+    implementation project(':commons:commons-web')
+    implementation project(':commons:commons-auth')
+    implementation project(':statistics')
+    implementation project(':user')
+    implementation project(':plugin-version')
+    implementation project(':dictionary')
+}
+
+processResources {
+    filesMatching('application.yaml') {
+        expand(project.properties)
+    }
+}

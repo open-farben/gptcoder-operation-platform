@@ -1,0 +1,18 @@
+###
+# @name 插件使用信息上报
+POST {{baseUrl}}/option/save
+Content-Type: application/json
+
+{
+  "userId": "ltg",
+  "funId": "code_search",
+  "modelName": "auto",
+  "clientIp": "localhost",
+  "pluginType": "vscode",
+  "pluginsVer": "1.1.0",
+  "ideName": "idea",
+  "ideVer": "2023.2",
+  "genNum": 136,
+  "confirmNum": 136,
+  "costTime": 870
+}

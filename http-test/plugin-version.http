@@ -1,0 +1,99 @@
+###
+# group: 版本管理
+# @name 查询系统支持插件类型
+GET {{baseUrl}}/plugin/listPluginTypes
+Authorization: Bearer {{token}}
+
+###
+# group: 版本管理
+# @name 解析插件文件
+POST {{baseUrl}}/plugin/analysisPluginFile
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="pluginFile"; filename="/D:/farben_workspace/gptcoder-jetbrains-extension/build/distributions/GPTCoder-1.4.1.zip"
+
+< /D:/farben_workspace/gptcoder-jetbrains-extension/build/distributions/GPTCoder-1.4.1.zip
+
+--WebAppBoundary
+
+###
+# group: 版本管理
+# @name 新增插件版本
+POST {{baseUrl}}/plugin/addPlugin
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "version": "1.4.1",
+  "description": "<h3>1.4.1</h3><ul><li>加强单元测试能力</li><li>多项细节优化，提升用户体验</li></ul>",
+  "type": "JETBRAINS",
+  "analysisKey": "plugin_66308788f9a8616291e0f035",
+  "publish": true,
+  "ideVersion": "JetBrains 系列 IDE编辑器:2022及以上版本"
+}
+
+###
+# group: 版本管理
+# @name 查询可供下载的插件信息
+GET {{baseUrl}}/plugin/listDownloadPlugins
+
+###
+# group: 版本管理
+# @name 下载插件
+GET {{baseUrl}}/plugin/downloadPlugin?
+    id=663087e1f9a8616291e0f037
+
+###
+# group: 版本管理
+# @name 分页查询插件信息
+GET {{baseUrl}}/plugin/pagePlugin?
+    pageSize=10&
+    pageNo=1&
+    status=RELEASED&
+    type=JETBRAINS
+Authorization: Bearer {{token}}
+
+###
+# group: 版本管理
+# @name 编辑插件版本
+POST {{baseUrl}}/plugin/modifyPlugin
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "663087e1f9a8616291e0f037",
+  "description": "description",
+  "ideVersion": "JetBrains 系列 IDE编辑器:2022及以上版本"
+}
+
+###
+# group: 版本管理
+# @name 更改插件状态
+POST {{baseUrl}}/plugin/changeStatus
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "663087e1f9a8616291e0f037",
+  "status": "REPEAL"
+}
+
+###
+# group: 版本管理
+# @name 删除插件
+DELETE {{baseUrl}}/plugin/deletePlugin?
+    ids=663087e1f9a8616291e0f037
+Authorization: Bearer {{token}}
+
+###
+# group: 版本管理
+# @name 检查插件版本是否可用
+POST {{baseUrl}}/plugin/checkVersion
+Content-Type: application/json
+
+{
+  "version": "1.1.0",
+  "type": "JETBRAINS"
+}

@@ -1,0 +1,287 @@
+###login
+#
+#/gptcoder/backend/logs/operation-platform
+POST {{baseUrl}}/account/login
+Content-Type: application/json
+
+{
+  "userId": "fOAjcMAmu7kY/kbJdHJWF4WDS+Aq0sTk9L9hkX5ElDRGxQRRlQ7DO4H//iImRDhZLloOd/s5uoatmwPoZyed9EqSDpxGSYH9Go+NdgcHiIZ8aVOb8Ua9mY6cr3S4Ut1oZjl+nlfSPte/fDrB2JL4IXtayZ5PctABci6z6Etjgjc=",
+  "password": "Whj17tP/bEOoCM38qjQU1VvTNhAxpbBupCiwRcb9f11jQH/jOxpMczqHPts8II/eQQttCFMsSmYJoFJH3y9gP/Spes/6zw7nX27JUGVUszmI8M9Xcdacs+hal9iaOOPuW873WkawszghqjfC7YaTzL7xbx4f96QwEDvbEk8tXAQ="
+}
+
+
+
+> {%
+    client.log(JSON.stringify(response.body));
+    client.global.set("token", response.body.data.accessToken);
+    client.global.set("refreshToken", response.body.data.refreshToken);
+    client.global.set("auth", "Bearer "+response.body.data.accessToken);
+    client.global.set("Authorization","Bearer "+response.body.data.accessToken);
+%}
+
+<> 2024-04-01T171033.200.json
+<> 2024-03-26T094245.200.json
+<> 2024-03-26T092628.200.json
+
+###Add knoeledge
+GET {{baseUrl}}/git/id/1779808634400047104
+Content-Type: application/json
+Authorization:{{auth}}
+
+
+###Add knoeledge
+#//,"fileList": ["65f000c9e4b0c49b3f2c349a"]
+POST {{baseUrl}}/git
+Content-Type: application/json
+Authorization:{{token}}
+
+{
+  "name": "ltg-test",
+  "upType": 1,
+  "refreshType":1,
+  "rightType": 0,
+  "linkDepart": "link1",
+  "status": 0,
+  "url":"http://172.16.10.31/gary/rule",
+  "user":"demo1",
+  "password": "demo123123",
+  "branch":"master",
+  "remarks":"测试"
+}
+
+<> 2024-03-15T161055.200.json
+<> 2024-03-15T160918.200.json
+
+
+###list know by name
+POST {{baseUrl}}/git/list
+Content-Type: application/json
+Authorization:{{token}}
+
+{
+  "name": ""
+}
+
+
+###knowledge file list
+GET {{baseUrl}}/git/filelist/1779808634400047104
+Authorization:{{token}}
+
+
+###update knowledge
+PUT {{baseUrl}}/git
+Content-Type: application/json
+Authorization:{{token}}
+
+{
+  "id": 1826914945366421504,
+  "name": "ltg-test",
+  "upType": 1,
+  "refreshType": 1,
+  "rightType": 0,
+  "linkDepart": "link1",
+  "status": 0,
+  "url": "http://172.16.10.31/gary/rule",
+  "user": "demo1",
+  "password": "demo123123",
+  "branch": "master",
+  "remarks": "测试2"
+}
+
+<> 2024-03-15T161246.200.json
+<> 2024-03-15T161209.200.json
+
+###update status
+PUT {{baseUrl}}/git/status/1779785197166170112
+Content-Type: application/json
+Authorization:{{auth}}
+
+{
+  "body": 0
+}
+
+###index
+GET {{baseUrl}}/git/index/1779808634400047104
+Content-Type: application/json
+Authorization:{{auth}}
+
+
+###search
+POST {{baseUrl}}/git/search/1795738047293661184
+Content-Type: application/json
+#Authorization:{{auth}}
+
+{
+  "body": "import"
+}
+
+###search multigit
+POST {{baseUrl}}/git/search
+Content-Type: application/json
+#Authorization:{{auth}}
+
+{
+  "ids": [
+    "1795738047293661184"
+  ],
+  "body": "GitServiceImpl"
+}
+
+###retry
+POST {{baseUrl}}/git/retry
+Content-Type: application/json
+Authorization:{{auth}}
+
+{
+  "body": [
+    1631,
+    1632
+  ]
+}
+
+###retryById
+GET {{baseUrl}}/git/retry/1793165432494391296
+Content-Type: application/json
+Authorization:{{auth}}
+
+
+###pull
+GET {{baseUrl}}/git/pullgit/1800352072069124096
+Content-Type: application/json
+Authorization:{{auth}}
+
+
+
+###del knowledge
+DELETE {{baseUrl}}/git/1826914945366421504
+Content-Type: application/json
+Authorization:{{token}}
+
+<> 2024-01-31T160415.200.json
+
+###batcch del knowledge
+DELETE {{baseUrl}}/git/batch/1795032097907339264
+Content-Type: application/json
+Authorization:{{auth}}
+
+
+###post knowledgeRight
+POST {{baseUrl}}/git/right
+Content-Type: application/json
+Authorization:{{auth}}
+
+[{"kid": 48, "lid": "657134e9e4b0e0baf2cfb2e4", "ltype": 0}
+,{"kid": 48, "lid": "657134d7e4b0e0baf2cfb2e3", "ltype": 0}]
+
+
+###get knowledgeRight
+GET {{baseUrl}}/git/right/1
+Content-Type: application/json
+Authorization:{{auth}}
+
+###get gitPath
+GET {{baseUrl}}/git/gitpath/664176179b7a9e4f18ea0338
+Content-Type: application/json
+Authorization:{{auth}}
+
+###knowledge pluglist
+GET {{baseUrl}}/git/pluglist
+Authorization:{{auth}}
+Content-Type: application/json
+
+<> 2024-01-22T141445.200.json
+
+###post Schedule
+POST {{baseUrl}}/git/schedule
+Authorization:{{auth}}
+Content-Type: application/json
+
+{
+  "type": 1,
+  "time": "2024-4-1 12:20:30"
+}
+
+###get Schedule
+GET {{baseUrl}}/git/schedule
+Authorization:{{auth}}
+Content-Type: application/json
+
+
+###knowledge userlist
+GET {{baseUrl}}/organ/knowtree?kid=48
+Authorization:{{auth}}
+Content-Type: application/json
+
+###knowledge pluglist
+GET {{baseUrl}}/git/pluglist
+#Authorization:{{auth}}
+Content-Type: application/json
+
+
+###knowledge pluglist
+GET {{baseUrl}}/git/pluglist/9f73554e-9848-4432-9360-d33bdb5d0c8b
+#Authorization:{{auth}}
+Content-Type: application/json
+
+<> 2024-03-15T164612.200.json
+<> 2024-03-15T164509.200.json
+<> 2024-03-15T164440.200.json
+<> 2024-03-15T164418.200.json
+
+
+###plugin login
+POST {{baseUrl}}/plugin/login
+Content-Type: application/json
+
+{
+  "uuid": "ltg1111111",
+  "machineId": "7208f1a75ce6149a83fc4e752e32e569c87fc6309a455ef43945ec6bebbab7a5",
+  "device": "vscode_desktop",
+  "userId": "iNspuipFLzY94qKizzlgbjjTWHDsPgBVA+kATwIskVF2fXpEXlL3sHY0vTv6wCRgW7ea+iYvNRfnGsNvOga4zldW2YmA9snaem75stVhCrRDENEU6n+fuTONd2vp49J4/sOjWKVz7DTg3vxdtoX8w3OyNN8XLslIDcBNxiV+tUo=",
+  "password": "PqWLeMEYePyKy53/Ixr4L+MEP4PBxwsphFaut612sayYfmtYrgMnYrVyfvAKO7aPGxzv6v2pL933co59ymd+1mcSWoCC6HSIV/jgWt/gyekAtflMNVKZVJVRHquPEslEBmkyiiTbG5XrSbfuOzCRzaL4xCgSC24PUwnn4VN/cXg=",
+  "ideName": "PyCharm",
+  "ideVersion": "2.0.1",
+  "pluginType": "jetBrains",
+  "pluginVersion": "1.4.0"
+}
+
+<> 2024-01-22T141453.200.json
+
+###plugin chat
+POST {{baseUrl}}/agent/models/stream/qa/chat
+Content-Type: application/json
+
+"hello"
+
+<> 2024-03-14T104658.200.json
+
+
+###plugin list right
+GET {{baseUrl}}/agent/models/pluglist
+Authorization:{{auth}}
+Uuid:ltg1111111
+Version: JETBRAINS:1.4.0
+Content-Type: application/json
+
+<> 2024-01-22T142833.200.json
+
+###changeUserPassword
+#
+POST {{baseUrl}}/account/pwd/edit
+Content-Type: application/json
+
+{
+"userId": "diyici2",
+"password": "FW6ds7Zc+JTvDDSix++/rhARcSe+ps5OCRNW/34I8TyTQjzJkO6FgcSLPYQvugr/MO6JeB1x0S/h54OqEZ9c6aI7fTorpLVCjJr5ZsfGh3Us5hXY4V/iEPmWU5v35j1BT57FPx+7vKs9r+NCsDEnBJ7KTkUO8idWOyIuc+hbNmA=",
+"newPassword": "cgMY3cX1vFYctZy/085nsZZS/K4AITSRl/snsQXkkrhHlGfrS2OJvhqixzpswZaYyfws2TpFdgIP2gDLWPh2t6w6X4EIEPAJ9FbqNhVRsrE86w9daGzpoH2XheEL19XgBncYry+qXi2UblrTmdnNR6U5goL7CYPzFLgtflstoH4="
+}
+
+###changePlugPassword
+#
+POST {{baseUrl}}/plugin/modifyPassword
+Content-Type: application/json
+
+{
+  "newPassword": "fOAjcMAmu7kY/kbJdHJWF4WDS+Aq0sTk9L9hkX5ElDRGxQRRlQ7DO4H//iImRDhZLloOd/s5uoatmwPoZyed9EqSDpxGSYH9Go+NdgcHiIZ8aVOb8Ua9mY6cr3S4Ut1oZjl+nlfSPte/fDrB2JL4IXtayZ5PctABci6z6Etjgjc=",
+  "password": "Whj17tP/bEOoCM38qjQU1VvTNhAxpbBupCiwRcb9f11jQH/jOxpMczqHPts8II/eQQttCFMsSmYJoFJH3y9gP/Spes/6zw7nX27JUGVUszmI8M9Xcdacs+hal9iaOOPuW873WkawszghqjfC7YaTzL7xbx4f96QwEDvbEk8tXAQ="
+}

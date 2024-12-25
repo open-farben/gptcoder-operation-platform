@@ -1,0 +1,89 @@
+###
+# group: 插件使用统计
+# @name 分页查询用户使用插件情况
+GET {{baseUrl}}/statistics/pluginUsage?
+    pageSize=10&
+    pageNo=1&
+    searchText=cmt&
+    orderStr=activeTime&
+    orderBy=DESC&
+    startDay=2023-11-12&
+    endDay=2024-02-01
+Authorization: Bearer {{token}}
+
+###
+# group: 插件使用统计
+# @name 用户使用插件情况导出
+GET {{baseUrl}}/statistics/exportPluginUsage?
+    endDay=2024-02-01&
+    orderStr=generationLines&
+    orderBy=DESC&
+    startDay=2023-11-12
+Authorization: Bearer {{token}}
+
+###
+# group: 插件使用统计
+# @name 分页查询插件功能统计
+GET {{baseUrl}}/statistics/pluginFunction?
+    pageSize=10&
+    pageNo=1&
+    startDay=2024-02-01&
+    endDay=2024-04-30
+Authorization: Bearer {{token}}
+
+###
+# group: 插件使用统计
+# @name 插件功能统计导出
+GET {{baseUrl}}/statistics/exportPluginFunction?
+    pageNo=1&
+    pageSize=10&
+    fullOrganNo=&
+    searchText=&
+    startDay=2024-02-01&
+    endDay=2024-04-30
+Authorization: Bearer {{token}}
+
+###
+# group: 插件使用统计
+# @name 概览页功能使用情况统计
+GET {{baseUrl}}/dashboard/fun?
+    startDate=2024-02-01&
+    endDate=2024-04-30&
+    type=month
+Authorization: Bearer {{token}}
+
+###
+# group: 插件使用统计
+# @name 概览页职务使用插件功能次数统计
+GET {{baseUrl}}/dashboard/fun/count?
+    startDate=2024-07-01&
+    endDate=2024-09-30&
+    type=month
+Authorization: Bearer {{token}}
+
+###
+# group: 插件使用统计
+# @name 概览页各职务使用插件人数统计
+GET {{baseUrl}}/dashboard/duty/count?
+    startDate=2024-07-01&
+    endDate=2024-09-30&
+    type=month
+Authorization: Bearer {{token}}
+
+###
+# group: 插件使用统计
+# @name 关键指标
+GET {{baseUrl}}/dashboard/stat?
+    startDate=2024-04-01&
+    endDate=2024-04-30&
+    type=month
+Authorization: Bearer {{token}}
+
+###
+# group: 插件使用统计
+# @name 概览页使用情况统计
+GET {{baseUrl}}/dashboard/fun/count?
+    startDate=2024-07-01&
+    endDate=2024-09-30&
+    type=day
+Authorization: Bearer {{token}}

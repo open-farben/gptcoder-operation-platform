@@ -1,0 +1,11 @@
+version = '1.0.1'
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}
+
+jar {
+    preserveFileTimestamps false
+    reproducibleFileOrder true
+}

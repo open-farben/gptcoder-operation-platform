@@ -1,0 +1,186 @@
+###
+# @name 效果反馈-无用
+POST {{baseUrl}}/feedback/effect
+Uuid: 3d59f3f2-e7dd-4b83-a209-bc466c11017c
+Version: JETBRAINS:1.6.0
+Content-Type: application/json
+
+{
+  "serialNumber": "66a84f04366ad5e4e093abb3",
+  "type": "no_use"
+}
+
+###
+# @name 效果反馈-有用
+POST {{baseUrl}}/feedback/effect
+Uuid: 74436f8c-cea5-44ca-9f6b-201875878824
+Version: JETBRAINS:1.6.0
+Content-Type: application/json
+
+{
+  "serialNumber": "66a84f04366ad5e4e093abb3",
+  "type": "be_of_use"
+}
+
+###
+# @name 效果反馈-取消已有
+POST {{baseUrl}}/feedback/effect
+Uuid: 3d59f3f2-e7dd-4b83-a209-bc466c11017c
+Version: JETBRAINS:1.6.0
+Content-Type: application/json
+
+{
+  "serialNumber": "66a84f04366ad5e4e093abb3",
+  "type": "cancel"
+}
+
+###
+# @name 效果反馈-取消不存在流水号
+POST {{baseUrl}}/feedback/effect
+Uuid: 74436f8c-cea5-44ca-9f6b-201875878824
+Version: JETBRAINS:1.6.0
+Content-Type: application/json
+
+{
+  "serialNumber": "66a35dfb366a0600be365b90",
+  "type": "cancel"
+}
+
+###
+# @name 效果反馈-无效流水号
+POST {{baseUrl}}/feedback/effect
+Uuid: 3d59f3f2-e7dd-4b83-a209-bc466c11017c
+Version: JETBRAINS:1.6.0
+Content-Type: application/json
+
+{
+  "serialNumber": "test",
+  "type": "no_use"
+}
+
+###
+# @name 意见反馈
+POST {{baseUrl}}/feedback/suggest
+Uuid: 3d59f3f2-e7dd-4b83-a209-bc466c11017c
+Version: JETBRAINS:1.6.0
+Content-Type: application/json
+
+{
+  "serialNumber": "66a84f04366ad5e4e093abb3",
+  "suggest": "好像没用"
+}
+
+###
+# @name 意见反馈-无效流水号
+POST {{baseUrl}}/feedback/suggest
+Uuid: 3d59f3f2-e7dd-4b83-a209-bc466c11017c
+Version: JETBRAINS:1.6.0
+Content-Type: application/json
+
+{
+  "serialNumber": "test",
+  "suggest": "好像没用"
+}
+
+###
+# @name 效果反馈-平台用户
+POST {{baseUrl}}/feedback/effect
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "serialNumber": "66a87e39366a1cd67efa5596",
+  "type": "no_use"
+}
+
+###
+# @name 效果反馈-apikey
+POST {{baseUrl}}/feedback/effect
+Authorization: 48edbd22-868d-4f37-98fa-c1fc872c4290
+Content-Type: application/json
+
+{
+  "serialNumber": "66a85e19366a77fe433a46a5",
+  "type": "no_use"
+}
+
+###
+# @name 效果反馈-非法平台用户
+POST {{baseUrl}}/feedback/effect
+Authorization: Bearer tererer
+Content-Type: application/json
+
+{
+  "serialNumber": "66a6fc6b366a6f24331dcab6",
+  "type": "no_use"
+}
+
+###
+# @name 意见反馈-平台用户
+POST {{baseUrl}}/feedback/suggest
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "serialNumber": "66a87e39366a1cd67efa5596",
+  "suggest": "好像没用"
+}
+
+###
+# @name 意见反馈-apikey
+POST {{baseUrl}}/feedback/suggest
+Authorization: Bea48edbd22-868d-4f37-98fa-c1fc872c4290
+Content-Type: application/json
+
+{
+  "serialNumber": "66a85e19366a77fe433a46a5",
+  "suggest": "好像没用"
+}
+
+###
+# @name 意见反馈-非法平台用户
+POST {{baseUrl}}/feedback/suggest
+Authorization: Bearer tererer
+Content-Type: application/json
+
+{
+  "serialNumber": "66a6fc6b366a6f24331dcab6",
+  "suggest": "好像没用"
+}
+
+###
+# @name 用户反馈分页查询
+GET {{baseUrl}}/feedback/pageFeedback?pageNo=1
+    &pageSize=20
+    &modelAbility=
+    &feedbackType=
+    &fullOrganNo=
+    &searchText=
+    &from=
+    &to=
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+###
+# @name 查询用户反馈问答
+GET {{baseUrl}}/feedback/getFeedbackQA?id=66a84f04366ad5e4e093abb3
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+###
+# @name 查询用户反馈上文
+GET {{baseUrl}}/feedback/getFeedbackHistory?id=66ab5b7fe4b0e9e39d666949
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+###
+# @name 用户反馈导出
+GET {{baseUrl}}/feedback/exportFeedback?modelAbility=
+    &feedbackType=
+    &fullOrganNo=
+    &searchText=
+    &from=
+    &to=
+    &startNo=
+    &exportNo=
+Authorization: Bearer {{token}}

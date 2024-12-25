@@ -1,0 +1,14 @@
+dependencies {
+    implementation 'cn.hutool:hutool-core'
+    implementation 'cn.hutool:hutool-json'
+
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+    implementation 'com.mybatis-flex:mybatis-flex-spring-boot3-starter'
+
+    implementation project(':commons:commons-ddd')
+    implementation project(':commons:commons-web')
+    implementation project(':commons:commons-errorcode')
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}

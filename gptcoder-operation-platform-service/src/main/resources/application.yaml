@@ -1,0 +1,133 @@
+﻿info:
+  app:
+    version: ${version}
+
+server:
+  port: 28080
+  max-http-request-header-size: 10KB
+  servlet:
+    context-path: /coder-api
+
+spring:
+  application:
+    name: gptcoder-operation-platform-service
+  web:
+    resources:
+      add-mappings: true
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+  quartz:
+    job-store-type: jdbc
+    auto-startup: true
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: GPTCoder_Scheduler
+            instanceId: AUTO
+          jobStore:
+            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: QRTZ_
+            isClustered: true
+            misfireThreshold: 12000
+            clusterCheckinInterval: 15000
+            useProperties: false
+          threadPool:
+            threadNamePrefix: Boot_Job_Pool
+            threadPriority: 5
+            threadCount: 10
+            class: org.quartz.simpl.SimpleThreadPool
+    jdbc:
+      initialize-schema: never
+
+mybatis-plus:
+  configuration:
+    local-cache-scope: statement
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+commons:
+  config:
+    file_store:
+      total_path:
+        windows: d:/gptcoder/files/
+        linux: /data/release
+
+coder:
+  config:
+    page:
+      PageSize: 20
+    url:
+      apisix: http://10.18.59.146:9080
+      authentication: http://10.18.61.35:28088
+    exclude: /account/login,/flow/save,/option/save,/plugin/login,/plugin/getUserInfo,/plugin/logout,/plugin/modifyPassword,/plugin/connection_test,/auth/refreshLicense,/plugin/template/export,/plugin/listDownloadPlugins,/plugin/downloadPlugin,/plugin/checkVersion,/token/refresh,/error,/coder-api/git/search/*,/knowledge/pluglist/*,/git/pluglist/*,/plugin/check/*,/account/check/*,/pwd/edit,/plugin/modifyPassword
+  token:
+    plugin-user-expire-day: 30
+  user:
+    plugin-user-default-password: rsa:DK94TAossqDdF5XSOynn63SMjLYQpdJZ+2RZp0UA1ejmZ+94LhR3qXTPRKUSrdoxD/j74uzILX1wUw60wss9yq7UkknK0cHLkWos4M3+tq16OECIyGYNGU3JsmQGP4bPnnCVetUnc/hlib6BwTWx7ui8AvS3S+3Lj9onUVPox1k=
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+        - preTest
+#  datasource:
+#    url: rsa:NEgNnBtzdn23A+v4yNJLtMm5kZfk26A/rCD2JuqdzIq7Tk/hz0VuTKC+/wX8nBhAecnGLP1kKlyxmqndy74tCA0hI32MLmLElenkZueWXIpQZ/ksLleK5CREhdfz+jgyAyZde4UYr4hy9+X6wanVZuey4EXN4BAThPT9iBssFtk=
+#    username: rsa:kgs4XuXbm/5eYTkhi5m2lwNVRZK3ln6zfNG03hvX3QTRs9ZGoQk2oxG0XmQ5HoY1YJHpftvQGbxmg+V073oeuwOlyhFMAynty/94ubSCDp5wafQ8boZyAducIkhAjC90w+TQ1+Q05Jr3hijEA/uh/nrZog+/imIvVFjyoqTo8Qg=
+#    password: rsa:VPk0IZLS0qjf0AOXYGbqddSd0gLkKObcl2y9e9PpxryXPJjbJ3zMtS487PmWPDEcuyPOEgMtyT1KHGrVQbzd+XO0v0jMw+7ruHFzOAK0jatp5JleuV28/JtxD/yga91pprlK4DeePcS131KI7z+Tz00Xlo/RdHUOtCThyZB5rAo=
+#  datasource:
+#      url: jdbc:mysql://192.168.1.31:33306/gptcoder_platform_dev?characterEncoding=UTF-8&allowMultiQueries=true
+#      username: gptcoder_platform_dev
+#      password: FB123456
+  datasource:
+    url: jdbc:mysql://10.18.61.35:23306/gptcoder_platform_open_dev?characterEncoding=UTF-8&allowMultiQueries=true
+    username: gptcoder_platform_open_dev
+    password: gptcoder_platform_open_dev_1234
+
+#  data:
+#    redis:
+#      host: 192.168.1.14
+#      port: 6379
+#      database: 1
+#      timeout: 2000
+#      lettuce:
+#        pool:
+#          max-active: 8
+#          max-wait: -1m
+#          max-idle: 8
+#          min-idle: 0
+
+  data:
+    redis:
+      host: 10.18.61.35
+      port: 26379
+      database: 6
+      timeout: 2000
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1m
+          max-idle: 8
+          min-idle: 0
+
+log4j2:
+  skipJansi: false
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+      multiline: true
+      logging: slf4j

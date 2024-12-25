@@ -1,0 +1,19 @@
+version = '2.0.0'
+
+dependencies {
+    implementation 'cn.hutool:hutool-core'
+    implementation 'cn.hutool:hutool-log'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'com.mybatis-flex:mybatis-flex-spring-boot3-starter'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+//   no need  to modify ,  ddd、errorcode、web in  the  same  project
+    implementation project(':commons:commons-errorcode')
+}
+
+jar {
+    preserveFileTimestamps false
+    reproducibleFileOrder true
+}

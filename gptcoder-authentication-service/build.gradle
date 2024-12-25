@@ -1,0 +1,135 @@
+//plugins {
+//	id 'java'
+//	id 'org.springframework.boot' version "${springbootVersion}"
+//	id 'io.spring.dependency-management' version '1.1.4'
+//	id "com.google.cloud.tools.jib" version "${jibVersion}"
+//}
+//
+//group = 'cn.com.farben.gptcoder.authentication'
+//version = '1.1.1'
+//
+//java {
+//	sourceCompatibility = JavaVersion.VERSION_21
+//	targetCompatibility = JavaVersion.VERSION_21
+//}
+//
+//repositories {
+//	mavenLocal()
+//	mavenCentral()
+//}
+//
+//configurations {
+//	// 使用log4j2，排除自带的日志
+//	all*.exclude group: "org.springframework.boot", module: 'spring-boot-starter-logging'
+//	// 排除junit4
+//	all*.exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+//	// 排除tomcat
+//	all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+//}
+//
+//dependencies {
+//	implementation 'org.springframework.boot:spring-boot-starter'
+//	implementation "org.springframework.boot:spring-boot-starter-web"
+//	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+//	implementation 'org.springframework.boot:spring-boot-starter-undertow'
+//	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+//	implementation 'org.springframework.boot:spring-boot-starter-validation'
+//
+//	implementation project(':commons:commons-web')
+//	implementation project(':commons:commons-redis')
+//	implementation project(':commons:commons-ddd')
+//	implementation project(':commons:commons-errorcode')
+//
+//	implementation "cn.hutool:hutool-log:${hutoolVersion}"
+//	implementation "cn.hutool:hutool-core:${hutoolVersion}"
+//	implementation "cn.hutool:hutool-jwt:${hutoolVersion}"
+//
+//	// 修复漏洞
+//	implementation "org.apache.commons:commons-compress:${commonsCompressVersion}"
+//	implementation "org.jboss.xnio:xnio-api:${xnioVersion}"
+//	implementation "io.undertow:undertow-core:${undertowVersion}"
+//
+//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//
+//	compileOnly 'org.projectlombok:lombok'
+//	annotationProcessor 'org.projectlombok:lombok'
+//}
+//
+//jib {
+//	allowInsecureRegistries = true
+//	from {
+////		image = 'dockerproxy.cn/library/eclipse-temurin:21.0.4_7-jre'
+//		image = '10.18.50.170:30012/library/eclipse-temurin:21.0.4_7-jre'
+//		platforms {
+//			platform {
+//				architecture = 'amd64'
+//				os = 'linux'
+//			}
+//		}
+//	}
+//	outputPaths {
+//		tar = "build/${project.name}-${project.version}-image.tar"
+//		digest = "build/${project.name}-${project.version}-image.digest"
+//		imageId = "build/${project.name}-${project.version}-image.id"
+//		imageJson = "build/${project.name}-${project.version}-image.json"
+//	}
+//	container {
+//		jvmFlags = [
+//				'-Duser.timezone=GMT+08', '-Dfile.encoding=UTF8', '-Xms2048m', '-Xmx4096m',
+//				'-XX:+UseG1GC', '-XX:MaxGCPauseMillis=200'
+//		]
+//		labels =  [service:"${project.name}", owner:'farben-backend']
+//		// 设置了系统时区后可以在部署时不用勾选同步主机时区
+//		environment = [
+//				'TZ': 'Asia/Shanghai'
+//		]
+//		// 容器化部署不用担心端口冲突，统一使用8080
+//		ports = ['8080']
+//		// 使用该参数将镜像的创建时间与系统时间对齐
+//		creationTime = "USE_CURRENT_TIMESTAMP"
+//		user = 65534
+//	}
+//}
+//
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
+
+
+
+
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	implementation 'org.springframework.boot:spring-boot-starter-undertow'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	implementation project(':commons:commons-web')
+	implementation project(':commons:commons-redis')
+	implementation project(':commons:commons-ddd')
+	implementation project(':commons:commons-errorcode')
+
+	implementation "cn.hutool:hutool-log:${hutoolVersion}"
+	implementation "cn.hutool:hutool-core:${hutoolVersion}"
+	implementation "cn.hutool:hutool-jwt:${hutoolVersion}"
+
+	// 修复漏洞
+	implementation "org.apache.commons:commons-compress:${commonsCompressVersion}"
+	implementation "org.jboss.xnio:xnio-api:${xnioVersion}"
+	implementation "io.undertow:undertow-core:${undertowVersion}"
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+}
+
+processResources {
+	filesMatching('application.yaml') {
+		expand(project.properties)
+	}
+}
+

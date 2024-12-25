@@ -1,0 +1,112 @@
+###login
+#错误密码
+#{
+#  "userId": "bQUTliQ3U6quS46R5zWJullIsBtBTZtEgzRL6aMKa2pS3/NT77aRS04y6KJZWettw3ZxmCYlSHBNE94HP/pW5usDcL9Q1dscybz6O3rXwrMOqO0DMCypTY2CfCZ+RdyuKlL12hifHlUBJutmivnARDY2/W8u7Ajfuandr8PCANA=",
+#  "password": "hy0XiSbEqsj+sXu/OjaiGfwWtDGemDknLShL/hXne+z0xI/Rsi9PZAGnn8iGZ49WeFqn5Dtidy0yg3IhTarf4Suw5ZaxsXRlTTRg0uzlXjazE+V8/FBcweDfU22E705lB8bTzvmqXQCCBo+acCQUMd+lTT90G8VYP3eHDS/EX6U="
+#}
+#正确密码
+#{
+#  "userId": "fOAjcMAmu7kY/kbJdHJWF4WDS+Aq0sTk9L9hkX5ElDRGxQRRlQ7DO4H//iImRDhZLloOd/s5uoatmwPoZyed9EqSDpxGSYH9Go+NdgcHiIZ8aVOb8Ua9mY6cr3S4Ut1oZjl+nlfSPte/fDrB2JL4IXtayZ5PctABci6z6Etjgjc=",
+#  "password": "Whj17tP/bEOoCM38qjQU1VvTNhAxpbBupCiwRcb9f11jQH/jOxpMczqHPts8II/eQQttCFMsSmYJoFJH3y9gP/Spes/6zw7nX27JUGVUszmI8M9Xcdacs+hal9iaOOPuW873WkawszghqjfC7YaTzL7xbx4f96QwEDvbEk8tXAQ="
+#}
+#/gptcoder/backend/logs/operation-platform
+POST {{baseUrl}}/account/login
+Content-Type: application/json
+
+{
+  "userId": "bQUTliQ3U6quS46R5zWJullIsBtBTZtEgzRL6aMKa2pS3/NT77aRS04y6KJZWettw3ZxmCYlSHBNE94HP/pW5usDcL9Q1dscybz6O3rXwrMOqO0DMCypTY2CfCZ+RdyuKlL12hifHlUBJutmivnARDY2/W8u7Ajfuandr8PCANA=",
+  "password": "hy0XiSbEqsj+sXu/OjaiGfwWtDGemDknLShL/hXne+z0xI/Rsi9PZAGnn8iGZ49WeFqn5Dtidy0yg3IhTarf4Suw5ZaxsXRlTTRg0uzlXjazE+V8/FBcweDfU22E705lB8bTzvmqXQCCBo+acCQUMd+lTT90G8VYP3eHDS/EX6U="
+}
+
+
+
+
+> {%
+    client.log(JSON.stringify(response.body));
+    client.global.set("token", response.body.data.accessToken);
+    client.global.set("refreshToken", response.body.data.refreshToken);
+    client.global.set("auth", "Bearer "+response.body.data.accessToken);
+    client.global.set("Authorization","Bearer "+response.body.data.accessToken);
+%}
+
+
+###plugin login
+POST {{baseUrl}}/plugin/login
+Content-Type: application/json
+
+{
+  "uuid": "ltg1111111",
+  "machineId": "7208f1a75ce6149a83fc4e752e32e569c87fc6309a455ef43945ec6bebbab7a5",
+  "device": "vscode_desktop",
+  "userId": "iNspuipFLzY94qKizzlgbjjTWHDsPgBVA+kATwIskVF2fXpEXlL3sHY0vTv6wCRgW7ea+iYvNRfnGsNvOga4zldW2YmA9snaem75stVhCrRDENEU6n+fuTONd2vp49J4/sOjWKVz7DTg3vxdtoX8w3OyNN8XLslIDcBNxiV+tUo=",
+  "password": "PqWLeMEYePyKy53/Ixr4L+MEP4PBxwsphFaut612sayYfmtYrgMnYrVyfvAKO7aPGxzv6v2pL933co59ymd+1mcSWoCC6HSIV/jgWt/gyekAtflMNVKZVJVRHquPEslEBmkyiiTbG5XrSbfuOzCRzaL4xCgSC24PUwnn4VN/cXg=",
+  "ideName": "PyCharm",
+  "ideVersion": "2.0.1",
+  "pluginType": "jetBrains",
+  "pluginVersion": "1.4.0"
+}
+
+<> 2024-01-22T141453.200.json
+
+###changeUserPassword
+#
+POST {{baseUrl}}/account/pwd/edit
+Content-Type: application/json
+
+{
+  "userId": "fOAjcMAmu7kY/kbJdHJWF4WDS+Aq0sTk9L9hkX5ElDRGxQRRlQ7DO4H//iImRDhZLloOd/s5uoatmwPoZyed9EqSDpxGSYH9Go+NdgcHiIZ8aVOb8Ua9mY6cr3S4Ut1oZjl+nlfSPte/fDrB2JL4IXtayZ5PctABci6z6Etjgjc=",
+  "password": "Whj17tP/bEOoCM38qjQU1VvTNhAxpbBupCiwRcb9f11jQH/jOxpMczqHPts8II/eQQttCFMsSmYJoFJH3y9gP/Spes/6zw7nX27JUGVUszmI8M9Xcdacs+hal9iaOOPuW873WkawszghqjfC7YaTzL7xbx4f96QwEDvbEk8tXAQ="
+}
+
+###CheckUser
+#
+GET {{baseUrl}}/account/check/admin
+Content-Type: application/json
+
+###CheckUser
+#
+GET {{baseUrl}}/plugin/check/suadmin
+Content-Type: application/json
+
+###UnlockUser
+#
+GET {{baseUrl}}/account/unlock/admin
+Content-Type: application/json
+Authorization:{{auth}}
+
+###UnlockPlugin
+#
+GET {{baseUrl}}/plugin/unlock/admin
+Content-Type: application/json
+
+###changePlugPassword
+#
+POST {{baseUrl}}/plugin/modifyPassword
+Content-Type: application/json
+
+{
+  "newPassword": "fOAjcMAmu7kY/kbJdHJWF4WDS+Aq0sTk9L9hkX5ElDRGxQRRlQ7DO4H//iImRDhZLloOd/s5uoatmwPoZyed9EqSDpxGSYH9Go+NdgcHiIZ8aVOb8Ua9mY6cr3S4Ut1oZjl+nlfSPte/fDrB2JL4IXtayZ5PctABci6z6Etjgjc=",
+  "password": "FAn9/WPe85afvWZg4zlVJyXI03xBX2tAkwYXoxlzL7NUf/jrL5o9nijQlhrtwG3NW/8Ks5iKNi96rJreiSrqyomDm+Xqk/TXH1ipHxPm42r0N/OV0Ewx3amUajED2ZVrVSWctNSzCNHDv2q22jfN1iqi4t8x9HefBc5d5CROiYE="
+}
+
+###AccountList
+#
+GET {{baseUrl}}/account/pageUser
+Content-Type: application/json
+Authorization:{{auth}}
+
+###PluginList
+#
+GET {{baseUrl}}/plugin/pageUser
+Content-Type: application/json
+Authorization:{{auth}}
+
+###
+# @name 删除账号
+DELETE {{baseUrl}}/account/deleteUser
+Authorization:{{token}}
+Content-Type: application/json
+
+{
+  "ids": "ltgtest"
+}

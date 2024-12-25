@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，
+当设置成trace时，可以看到log4j2内部各种详细输出
+-->
+<!--monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数-->
+<configuration monitorInterval="60">
+    <!-- 优先级从高到低分别是 OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL -->
+
+    <!-- 变量配置 -->
+    <Properties>
+        <property name="pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %l - %msg%n" />
+
+        <property name="APP_NAME">${spring:spring.application.name}</property>
+    </Properties>
+
+    <appenders>
+        <console name="stdout" target="SYSTEM_OUT">
+            <!-- 输出日志的格式 -->
+            <PatternLayout pattern="${pattern}"/>
+
+            <!-- 控制台只输出level及其以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="ACCEPT"/>
+        </console>
+
+        <Console name="stderr" target="SYSTEM_ERR">
+            <PatternLayout pattern="${pattern}"/>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Console>
+
+        <Socket name="Graylog" protocol="udp" host="10.18.50.87" port="32202">
+            <GelfLayout compressionType="ZLIB" includeThreadContext="true" threadContextIncludes="loginId,requestId">
+                <MessagePattern>%d %5p [%t] %c{1} %X{loginId, requestId} - %m%n</MessagePattern>
+                <KeyValuePair key="app" value="${APP_NAME}"/>
+                <SpringProfile name="test">
+                    <KeyValuePair key="env" value="test"/>
+                </SpringProfile>
+                <SpringProfile name="prod">
+                    <KeyValuePair key="env" value="prod"/>
+                </SpringProfile>
+                <SpringProfile name="dev | preTest">
+                    <KeyValuePair key="env" value="dev"/>
+                </SpringProfile>
+            </GelfLayout>
+        </Socket>
+    </appenders>
+
+    <!-- Logger节点用来单独指定日志的形式，比如要为指定包下的class指定不同的日志级别等。 -->
+    <!--然后定义loggers，只有定义了logger并引入的appender，appender才会生效-->
+    <loggers>
+        <!-- 过滤掉spring和mybatis的一些无用的DEBUG信息 -->
+        <logger name="org.mybatis" level="info" additivity="false">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="Graylog"/>
+        </logger>
+
+        <root level="INFO">
+            <appender-ref ref="stdout"/>
+            <appender-ref ref="stderr"/>
+            <appender-ref ref="Graylog"/>
+        </root>
+    </loggers>
+
+</configuration>

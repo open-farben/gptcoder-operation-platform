@@ -1,0 +1,132 @@
+###
+# @name 新增插件用户
+POST {{baseUrl}}/plugin/addUser
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "account": "ltg_http_test",
+  "name": "测试",
+  "email": "ltg_http_test@163.com",
+  "status": "ENABLE",
+  "duty": "java",
+  "organization": "1001002",
+  "fullOrganization": "1001|1001|1001001|1001002"
+}
+
+###
+# @name 插件用户登陆
+POST {{baseUrl}}/plugin/login
+Content-Type: application/json
+
+{
+  "uuid": "ltg_http_test_uuid",
+  "machineId": "ltg_http_test",
+  "device": "vscode_desktop",
+  "userId": "h5KXU5kWXkG6phIf5om0a4HJKwZc8Dlsvc21Hu2WjDmXdb7d1ZmvfYSWkYq3+J7VhWrri7x3XQDXUtJYaEs6XyxAFBxV4JSCN8akShNNepkdN1Fc0yRH5r2TsbhjgEy74JrQEmzRuAawKF2TmXJ+elsMr+khP+jJMmPCEbSmS7I=",
+  "password": "NDFgksIHeukjkljp6PihRL7pYGToSmQI01/M8N9ShvH6adHb7N3Q557BH/O8jxLy0SBC+CDwR4rSPAjkRFw701GeuNlUsIYv4WmpuRZRcQKd9L1eidbjcPWWk5y/y+qXn0w4lRimCUdkDmITsLjxJlExwvcqNgp3d0CMP+nmOLI=",
+  "ideName": "PyCharm",
+  "ideVersion": "2.0.1",
+  "pluginType": "jetBrains",
+  "pluginVersion": "1.4.0"
+}
+
+###
+# @name 根据识别码查询插件用户信息
+GET {{baseUrl}}/plugin/getUserInfo?
+    uuid=ltg_http_test_uuid
+
+###
+# @name 插件用户登出
+POST {{baseUrl}}/plugin/logout
+Content-Type: application/json
+
+{
+  "uuid": "ltg_http_test_uuid",
+  "userId": "ltg_http_test"
+}
+
+###
+# @name 修改插件用户
+POST {{baseUrl}}/plugin/editUser
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "66b58f01fac8b89f29584a88",
+  "account": "ltg_http_test",
+  "name": "test1",
+  "jobNumber": "test1",
+  "email": "test@163.com",
+  "duty": "java",
+  "organization": "1001001",
+  "status": "ENABLE",
+  "fullOrganization": "1001|1001|1001003"
+}
+
+###
+# @name 插件用户重置密码
+POST {{baseUrl}}/plugin/resetPassword
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "66b58f01fac8b89f29584a88"
+}
+
+###
+# @name 插件用户修改密码
+POST {{baseUrl}}/plugin/modifyPassword
+Content-Type: application/json
+
+{
+  "account": "PG+BLrctdU+1EQUh3LQXFexSSJ/epXz+Y4qW1UBOgwhLi5RqnIP13GGn+3b0DoiI9Vd2NDc0bjiLn21T9DUEu+mk7y7alc+22W+zRro1KfhNc9G9ilQqaatSaM2MGAXQsdHVRhZvymYBdGrQbVafsGug/4AbwtMB9+DpZijh0gQ=",
+  "password": "FXAgT0k9tl6IfhQAQ7WDCBpuvqoy8mf8FlSJT4arLEJzte4GzMc8NP2ytLaith87jr4uJTcdYUYwYBGNpmShGCekDUNkxqeHY4OZQyNlHqZGrwahxgbnO5sJf0r7qxte3fSdSFUN3QftfeRN7KWG4NEVqS372iRHCSMydyvwpJs=",
+  "newPassword": "NDFgksIHeukjkljp6PihRL7pYGToSmQI01/M8N9ShvH6adHb7N3Q557BH/O8jxLy0SBC+CDwR4rSPAjkRFw701GeuNlUsIYv4WmpuRZRcQKd9L1eidbjcPWWk5y/y+qXn0w4lRimCUdkDmITsLjxJlExwvcqNgp3d0CMP+nmOLI="
+}
+
+###
+# @name 删除插件用户
+DELETE {{baseUrl}}/plugin/deleteUser?
+    ids=66b58f01fac8b89f29584a88
+Authorization: Bearer {{token}}
+
+###
+# @name 分页查询插件用户
+GET {{baseUrl}}/plugin/pageUser?
+    pageSize=10&
+    pageNo=1&
+    userName=&
+    organization=&
+    status=ENABLE
+Authorization: Bearer {{token}}
+
+###
+# @name 禁用插件用户
+POST {{baseUrl}}/plugin/disableUser
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "66b58f01fac8b89f29584a88"
+}
+
+###
+# @name 启用插件用户
+POST {{baseUrl}}/plugin/enableUser
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "66b58f01fac8b89f29584a88"
+}
+
+###
+# @name 检查插件用户
+GET {{baseUrl}}/plugin/check/123
+Authorization: Bearer {{token}}
+
+###
+# @name 解锁插件用户
+GET {{baseUrl}}/plugin/unlock/ltg
+Authorization: Bearer {{token}}

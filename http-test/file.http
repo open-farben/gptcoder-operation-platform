@@ -1,0 +1,189 @@
+###
+# group: 文件管理
+# @name 创建目录
+POST {{baseUrl}}/files/createFolder
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "folderName": "ltg_test2",
+  "useType": "KNOWLEDGE",
+  "parentPath": "/"
+}
+
+###treeDescendant
+# group: 文件管理
+# @name 创建目录
+GET {{baseUrl}}/files/treeDescendant?id=661cf794cc2aa419cc3bf7c8
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+###
+# group: 文件管理
+# @name 上传文件
+POST {{baseUrl}}/files/uploadFile
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="/E:/Java源码加密工具.rar"
+
+< /E:/Java源码加密工具.rar
+--WebAppBoundary
+Content-Disposition: form-data; name="useType"
+
+KNOWLEDGE
+--WebAppBoundary
+Content-Disposition: form-data; name="parentPath"
+
+/ltg_test2
+--WebAppBoundary
+Content-Disposition: form-data; name="fileName"
+
+test.rar
+--WebAppBoundary
+
+###
+# group: 文件管理
+# @name 文件下载
+GET {{baseUrl}}/files/downloadFile?
+    id=66304589f9a8a0c3742efcc1
+Authorization: Bearer {{token}}
+
+###
+# group: 文件管理
+# @name 根据id获取文件信息
+GET {{baseUrl}}/files/getInfoById?
+    id=66304589f9a8a0c3742efcc1
+
+###
+# group: 文件管理
+# @name 删除文件信息
+DELETE {{baseUrl}}/files/removeByIds?
+    ids=65965f3265a20ec5cf740b6e,65965dd065a28e2c40403413
+
+###
+# group: 文件管理
+# @name 替换文件
+POST {{baseUrl}}/files/replaceFile
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="/E:/资料/新冠自我康复手册中文版（WHO）.pdf"
+
+< /E:/资料/新冠自我康复手册中文版（WHO）.pdf
+--WebAppBoundary
+Content-Disposition: form-data; name="fileId"
+
+6630476bf9a8a0c3742efcc2
+--WebAppBoundary
+Content-Disposition: form-data; name="fileName"
+
+spring-boot-reference
+--WebAppBoundary
+
+###
+# group: 文件管理
+# @name 批量上传文件
+POST {{baseUrl}}/files/uploadFiles
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="files"; filename="apple-touch-icon-57x57.png\apple-touch-icon-152x152.png"
+
+< /E:/资料/加工后图片/apple-touch-icon-57x57.png
+< /E:/资料/加工后图片/apple-touch-icon-152x152.png
+
+--WebAppBoundary
+Content-Disposition: form-data; name="useType"
+
+KNOWLEDGE
+--WebAppBoundary
+Content-Disposition: form-data; name="parentPath"
+
+/ltg_test
+--WebAppBoundary
+
+###
+# group: 文件管理
+# @name 更改目录名称
+POST {{baseUrl}}/files/changeFolderName
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "662f0b6a08a0f545c59f5ae8",
+  "name": "ltg_test"
+}
+
+###
+# group: 文件管理
+# @name 下载多个文件
+GET {{baseUrl}}/files/downloadFiles?
+    idList=66305341f9a8914f96edae9c,66305341f9a8914f96edae9d
+Authorization: Bearer {{token}}
+
+###
+# group: 文件管理
+# @name 分页查询目录下子文件和子目录信息
+GET {{baseUrl}}/files/pageChildrens?
+    id=662f0b6a08a0f545c59f5ae8&
+    pageNo=1&
+    pageSize=20&
+    name=测试
+Authorization: Bearer {{token}}
+
+###
+# group: 文件管理
+# @name zip方式上传目录
+POST {{baseUrl}}/files/uploadZipFile
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="/D:/lemes-cloud.zip"
+
+< /D:/lemes-cloud.zip
+--WebAppBoundary
+Content-Disposition: form-data; name="useType"
+
+KNOWLEDGE
+--WebAppBoundary
+Content-Disposition: form-data; name="parentPath"
+
+/ltg_test
+--WebAppBoundary
+
+###
+# group: 文件管理
+# @name 强制删除目录
+DELETE {{baseUrl}}/files/forceRemoveFolder?
+    id=662f0b6a08a0f545c59f5ae8
+Authorization: Bearer {{token}}
+
+###
+# group: 文件管理
+# @name 获取文件内容
+GET {{baseUrl}}/files/listFileContent?
+    id=
+    &path=d:/gptcoder/files/knowledge/gptcoder-operation-platform-service/dev/ltg_test3/PluginVersionAppService.java
+    &charset=
+Authorization: Bearer {{token}}
+
+###
+# group: 文件管理
+# @name 查询子文件和子目录
+GET {{baseUrl}}/files/listChildrens?
+    id=661cf796cc2aa419cc3bf7ce
+Authorization: Bearer {{token}}
+
+###
+# group: 文件管理
+# @name 根据文件名搜索指定目录下的文件信息
+GET {{baseUrl}}/files/treeSearch?
+    id=664176149b7a9e4f18ea0321
+    &fileName=java
+Authorization: Bearer {{token}}

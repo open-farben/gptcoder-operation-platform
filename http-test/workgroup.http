@@ -1,0 +1,81 @@
+###
+# group: 工作组管理
+# @name 分页查询工作组
+GET {{baseUrl}}/group/pageGroup?
+    pageSize=20&
+    pageNo=1&
+    groupName=&
+    effectiveDay=&
+    failureDay=
+Authorization: Bearer {{token}}
+
+###
+# group: 工作组管理
+# @name 新增工作组
+POST {{baseUrl}}/group/addGroup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "groupName": "ltg测试组",
+  "organNo": 1001002,
+  "introduce": "李天国测试组",
+  "effectiveDay": "2024-08-30",
+  "failureDay": "2024-12-01"
+}
+
+###
+# group: 工作组管理
+# @name 获取工作组可授权人员信息
+GET {{baseUrl}}/group/authorizedUser?
+    groupId=66b57b41fac856c96004ff1c
+Authorization: Bearer {{token}}
+
+###
+# group: 工作组管理
+# @name 编辑工作组
+POST {{baseUrl}}/group/editGroup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "66b57b41fac856c96004ff1c",
+  "groupName": "ltg测试组",
+  "organNo": 1001002,
+  "introduce": "李天国测试组",
+  "effectiveDay": "2024-08-10",
+  "failureDay": "2024-12-31"
+}
+
+###
+# group: 工作组管理
+# @name 工作组授权
+POST {{baseUrl}}/group/accreditGroup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "66b57b41fac856c96004ff1c",
+  "userIds": "[\"65b355a1e4b0c49bb8758355\",\"65b36bdbe4b0c49bb8758385\",\"65b35fa6e4b0c49bb8758357\"]"
+}
+
+###
+# group: 工作组管理
+# @name 删除工作组
+DELETE {{baseUrl}}/group/removeGroup?
+    ids=66b57b41fac856c96004ff1c
+Authorization: Bearer {{token}}
+
+###
+# group: 工作组管理
+# @name 获取知识库可授权的工作组信息
+GET {{baseUrl}}/group/authorizedGroup?
+    knowledgeId=1812751534674747392
+Authorization: Bearer {{token}}
+
+###
+# group: 工作组管理
+# @name 获取git库可授权的工作组信息
+GET {{baseUrl}}/group/authorizedGitGroup?
+    gitId=1826194060915871744
+Authorization: Bearer {{token}}

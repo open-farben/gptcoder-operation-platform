@@ -1,0 +1,44 @@
+﻿spring:
+  application:
+    name: gptcoder-authentication
+  profiles:
+    active: dev
+
+config:
+  interceptor:
+    enableUserInterceptor: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+        - preTest
+  data:
+    redis:
+      host: 10.18.61.35
+      port: 26379
+      database: 6
+      timeout: 2000
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1m
+          max-idle: 8
+          min-idle: 0
+
+authentication:
+  config:
+    token-urls: /token/generateTokenPair, /token/refreshToken
+    token-white-list: 192.168.*, 10.18.50.*, 10.18.69.*, 172.*, 188.188.*
+    # Verify platform users
+    platform-uris: /coder-api/.*, /agent/prompt/.*, /knowledge_base/.*, /llm_model/.*, /chat/.*, /models/.*, /agent/models/.*, /kwcoder/.*
+    # Verify plug-in users
+    plugin-uris: /agent/models/.*, /coder-api/files/listFileContent, /knowledge_base/.*, /llm_model/.*, /models/.*, /chat/.*, /coder-api/feedback/.*, /kwcoder/.*
+    uri-white-list: /agent/prompt/debug,/agent/models/stream/qa/.*,/agent/applet/query_for_chat,/coder-api/account/login,/coder-api/flow/save,/coder-api/option/save,/coder-api/plugin/login,/coder-api/plugin/getUserInfo,/coder-api/plugin/logout,/coder-api/plugin/modifyPassword,/coder-api/plugin/connection_test,/coder-api/auth/refreshLicense,/coder-api/plugin/template/export,/coder-api/plugin/listDownloadPlugins,/coder-api/plugin/downloadPlugin,/coder-api/plugin/checkVersion,/coder-api/token/refresh,/coder-api/knowledge/pluglist/.*,/coder-api/git/search/.*,/coder-api/git/search,/coder-api/git/pluglist/.*,/open/models/.*,/coder-api/plugin/check/.*,/coder-api/account/check/.*,/coder-api/account/pwd/edit,/chat/knowledge_base_chat,/agent/models/websocket/.*,/agent/prompt/websocket/.*
+    api-key: 48edbd22-868d-4f37-98fa-c1fc872c4290
+    api-uris: /agent/models/.*, /models/.*, /knowledge_base/.*, /llm_model/.*
+
+log4j2:
+  skipJansi: false

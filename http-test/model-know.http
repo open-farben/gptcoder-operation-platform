@@ -1,0 +1,87 @@
+
+#---------------------knowledge api--------------------------------------------------
+###Agent list knowledge
+GET  http://{{githost}}/knowledge_base/list_knowledge_bases
+
+
+###Agent add knowledge
+POST  http://{{githost}}/knowledge_base/create_knowledge_base
+Content-Type: application/json
+Accept: application/json
+
+{
+  "knowledge_base_name": "a1"
+}
+
+
+
+###Agent delete knowledge
+POST  http://{{githost}}/knowledge_base/delete_knowledge_base
+Accept: application/json
+Content-Type: application/json
+
+"a1"
+
+###Agent upload knowledge file
+#data.failed_files
+#"service/dev/1778618459779190784/platform/user/infrastructure/repository/po/controller/GitController.java"
+#/data/release/knowledge/gptcoder-operation-platform-service/dev/18/我是超级奸商.txt
+POST  http://{{githost}}/knowledge_base/upload_docs_use_path
+Content-Type: application/json
+
+{
+  "knowledge_base_name": "a1795738047293661184",
+  "files": [
+    "aaaasas.java"
+  ]
+}
+
+
+###Agent update knowledge file
+POST  http://{{modelhost}}/knowledge_base/update_docs_use_path
+Content-Type: application/json
+
+{
+  "knowledge_base_name": "44",
+  "file_paths": [
+    "/data/release/knowledge/gptcoder-operation-platform-service/dev/44/流程/研发文档/工作流程文档/产品中心IT系统提交流程文档/IT系统-魔百和上传文件要求规则【V2.0】.doc"
+  ]
+}
+
+
+
+###Agent list knowledge file
+GET http://{{githost}}/knowledge_base/list_files?knowledge_base_name=a1795749309960994816
+Content-Type: application/json
+
+<> 2024-03-26T163144.200.json
+<> 2024-03-26T163119.200.json
+<> 2024-03-26T163111.200.json
+<> 2024-03-25T152941.200.json
+
+###knowledge chat
+POST http://{{modelhost}}/chat/knowledge_base_chat
+Content-Type: application/json
+
+{
+  "query": "你好",
+  "knowledge_base_name": "75",
+  "top_k": 3,
+  "score_threshold": 1,
+  "history": [
+    {
+      "role": "user",
+      "content": "我们来玩成语接龙，我先来，生龙活虎"
+    },
+    {
+      "role": "assistant",
+      "content": "虎头虎脑"
+    }
+  ],
+  "stream": false,
+  "model_name": "chatglm3-6b",
+  "temperature": 0.7,
+  "max_tokens": 0,
+  "prompt_name": "default"
+}
+
